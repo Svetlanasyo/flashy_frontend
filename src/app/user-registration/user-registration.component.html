@@ -1,0 +1,27 @@
+<div class="row">
+  <form [formGroup]="form" class="col s12" (ngSubmit)="register()">
+    <div class="row">
+      <div class="input-field col s6">
+        <input id="nick_name" type="text" class="validate" formControlName="nick_name"/>
+        <p *ngIf="form.get('nick_name').invalid && form.get('nick_name').touched">Please enter your nick name</p>
+        <label for="nick_name">Nick Name</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="password" type="password" class="validate" formControlName="password"/>
+        <p *ngIf="form.get('password').invalid && form.get('password').touched">Please enter password</p>
+        <label for="password">Password</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="confirm_password" type="password" class="validate" formControlName="confirm_password"/>
+        <p *ngIf="form.get('confirm_password').invalid && form.get('confirm_password').touched">Please confirm your password</p>
+        <label for="confirm_password">Confirm password</label>
+      </div>
+    </div>
+      <button class="btn waves-effect waves-light" type="submit" name="action" [disabled]="form.invalid">Submit
+      </button>
+  </form>
+</div>
