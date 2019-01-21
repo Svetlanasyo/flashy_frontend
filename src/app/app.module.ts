@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 // import { UserRegistrationComponent } from './user-registration/user-registration.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
+// import { HomeComponent } from './home/home.component';
 // import { UserLoginComponent } from './user-login/user-login.component';
 
 @NgModule({
@@ -16,6 +17,7 @@ import { FooterComponent } from './footer/footer.component';
     // UserRegistrationComponent,
     NavbarComponent,
     FooterComponent,
+    // HomeComponent,
     // UserLoginComponent
   ],
   imports: [
