@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 
-
 @Component({
   selector: 'app-user-registration',
   templateUrl: './user-registration.component.html',
@@ -17,7 +16,7 @@ export class UserRegistrationComponent implements OnInit {
       "password": new FormControl("", [Validators.required,
         Validators.min(4)]),
       "confirm_password": new FormControl("", [Validators.required,
-        Validators.min(4), this.checkPasswordForEquals]),
+        Validators.min(4), /*this.checkPasswordForEquals*/]),
     });
   }
 
@@ -26,9 +25,9 @@ export class UserRegistrationComponent implements OnInit {
 
   }
 
-  checkPasswordForEquals(control: FormControl) {
-    if (control.value.)
-  }
+//   checkPasswordForEquals(control: FormControl) {
+//     if (control.value.)
+// }
 
   register(){
     console.log(this.form);
