@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import { first } from "rxjs/operators";
+
+import { AlertService } from "../services/alert-service.service";
+import { UserService } from "../services/user.service";
+import { AuthenticationService } from "../services/authentication.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-user-registration',
@@ -7,29 +13,55 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
   styleUrls: ['./user-registration.component.scss']
 })
 export class UserRegistrationComponent implements OnInit {
-  form : FormGroup;
+  registerForm: FormGroup;
+  loading = false;
+  submitted = false;
 
-  constructor() {
-    this.form = new FormGroup({
-
-      "nick_name": new FormControl("", Validators.required),
-      "password": new FormControl("", [Validators.required,
-        Validators.min(4)]),
-      "confirm_password": new FormControl("", [Validators.required,
-        Validators.min(4), /*this.checkPasswordForEquals*/]),
-    });
+  constructor(
+      private formBuilder: FormBuilder,
+      private router: Router,
+      private authenticationService: AuthenticationService,
+      private userService: UserService,
+      private alertService: AlertService
+  ) {
+    if (this.authenticationService.currentUserValue) {
+      this.router.navigate(['/'])
+    }
   }
 
 
   ngOnInit(): void {
-
+    this.registerForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    })
   }
 
-//   checkPasswordForEquals(control: FormControl) {
-//     if (control.value.)
-// }
+  get f() {return this.registerForm.controls;}
 
-  register(){
-    console.log(this.form);
+  onSubmit() {
+    this.submitted = true;
+
+    if (this.registerForm.invalid) {
+      return
+    }
+    this.loading = true;
+    console.log(this.registerForm.value);
+    this.userService.register(this.registerForm.value)
+        .pipe(first())
+        .subscribe(
+            data => {
+              console.log(data)
+              this.alertService.success("Registration successfull", true);
+              this.router.navigate(['/login'])
+            },
+            error => {
+              this.alertService.error(error);
+              this.loading = false;
+            }
+        );
   }
+
+
+
   }

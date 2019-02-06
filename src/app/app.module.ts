@@ -6,11 +6,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { AlertComponent } from './alert/alert.component';
-import { NewsComponent } from './news/news.component';
-
-// import { UserRegistrationComponent } from './user-registration/user-registration.component';
-// import { HomeComponent } from './home/home.component';
-// import { UserLoginComponent } from './user-login/user-login.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -28,7 +24,8 @@ import { NewsComponent } from './news/news.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
