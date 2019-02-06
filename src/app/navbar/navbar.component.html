@@ -5,15 +5,18 @@
 
       <a routerLink="/home" class="brand-logo center">Fishky</a>
       <ul class="left hide-on-med-and-down">
-        <li *ngIf="currentUser"> {{ currentUser.nick_name }} </li>
+        <li *ngIf="currentUser"> {{ currentUser.username }} </li>
         <li><a routerLink="/home">Home</a></li>
         <li><a routerLink="/news">News</a></li>
         <!--active option-->
         <!--<li class="active"><a href="collapsible.html">DUDUDU</a></li>-->
       </ul>
       <ul class="right hide-on-med-and-down">
-        <li><a routerLink="/login">Login</a></li>
-        <li><a routerLink="/register">Register</a></li>
+        <div *ngIf="!currentUser">
+          <li><a routerLink="/login">Login</a></li>
+          <li><a routerLink="/register">Register</a></li>
+        </div>
+        <li *ngIf="currentUser"><a (click)="logout()">Logout</a></li>
       </ul>
     </div>
   </nav>

@@ -6,6 +6,7 @@ import { AlertService } from "../services/alert-service.service";
 import { UserService } from "../services/user.service";
 import { AuthenticationService } from "../services/authentication.service";
 import {Router} from "@angular/router";
+import { PasswordValidation } from "./passwordValidation";
 
 @Component({
   selector: 'app-user-registration',
@@ -33,8 +34,9 @@ export class UserRegistrationComponent implements OnInit {
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
       username: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6)]]
-    })
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(6)]]
+    },{validator: PasswordValidation.MatchPassword})
   }
 
   get f() {return this.registerForm.controls;}
@@ -45,8 +47,11 @@ export class UserRegistrationComponent implements OnInit {
     if (this.registerForm.invalid) {
       return
     }
+    // if (this.registerForm.value.password != this.registerForm.value.password_verify){
+    //   return
+    // }
     this.loading = true;
-    console.log(this.registerForm.value);
+    console.log(this.registerForm.value.password);
     this.userService.register(this.registerForm.value)
         .pipe(first())
         .subscribe(

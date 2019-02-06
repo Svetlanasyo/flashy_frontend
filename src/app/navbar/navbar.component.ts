@@ -25,6 +25,7 @@ export class NavbarComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit() {
+    console.log(this.currentUser);
     this.loadAllUsers();
   }
 
@@ -43,6 +44,11 @@ export class NavbarComponent implements OnInit, OnDestroy{
     this.userService.getAll().pipe(first()).subscribe(users => {
       this.users = users;
     });
+  }
+
+  logout() {
+    this.authenticationService.logout();
+    // this.router.navigate(['/login']);
   }
 
 
